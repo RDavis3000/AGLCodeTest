@@ -1,0 +1,19 @@
+﻿@model Dictionary<string,IEnumerable<string>>
+
+
+@{
+    ViewData["Title"] = "CatList";
+}
+
+<h2>CatList</h2>
+
+@foreach(KeyValuePair<string, IEnumerable<string>> gender in Model)
+{
+    <h5>@gender.Key</h5>
+    <ul>
+        @foreach (var pet in gender.Value)
+        {
+            <li>@pet</li>
+        }
+    </ul>
+}
