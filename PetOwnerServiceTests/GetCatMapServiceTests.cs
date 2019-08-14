@@ -9,6 +9,7 @@ using PetOwnerServiceTests.EqualityComparers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PetOwnerServiceTests
 {
@@ -16,7 +17,7 @@ namespace PetOwnerServiceTests
     public class GetCatMapServiceTests
     {
         [TestMethod]
-        public async void GetCatsAlphaOwnerGenderDictionaryTest()
+        public async Task GetCatMapDictionaryAsyncTest()
         {
             //arrange
             List<PetOwner> testData = new List<PetOwner>()
@@ -95,17 +96,17 @@ namespace PetOwnerServiceTests
 
                 {"Gender1", new List<string>()
                 {
-                   "aPet1",
-                   "abPet4",
-                   "bzPet5",
-                   "dupe1"
+                    "abPet4",
+                    "aPet1",
+                    "bzPet5",
+                    "dupe1"
                 }
                 },
                 {"Gender2", new List<string>()
                 {
-                   "bPet7",
-                   "bPet8",
-                   "dupe1"
+                    "bPet7",
+                    "bPet8",
+                    "dupe1"
                 }
                 }
             };
@@ -121,7 +122,7 @@ namespace PetOwnerServiceTests
             var catsAlphaOwnerGenderService = new GetCatMapService(IReadPetOwnersMock.Object, ownerProcessor, ILoggerMock.Object);
 
             //act
-            var actualResult = await catsAlphaOwnerGenderService.GetCatMapAsync();
+            var actualResult = await catsAlphaOwnerGenderService.GetCatMapDictionaryAsync();
 
             var dictionaryEqualityComparer = new CatMapDictionaryEqualityComparer();
 
