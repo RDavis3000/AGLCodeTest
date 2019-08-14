@@ -13,12 +13,12 @@ namespace CatListMVCUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly GetCatMapService _getCatMapService;
+        private readonly IGetCatMapService _getCatMapService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(GetCatMapService catsAlphaOwnerGenderService, ILogger<HomeController> logger)
+        public HomeController(IGetCatMapService getCatMapService, ILogger<HomeController> logger)
         {
-            _getCatMapService = catsAlphaOwnerGenderService;
+            _getCatMapService = getCatMapService;
             _logger = logger;
         }
 
