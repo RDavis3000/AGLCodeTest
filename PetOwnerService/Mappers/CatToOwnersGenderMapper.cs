@@ -6,7 +6,7 @@ using PetOwnerModels;
 
 namespace PetOwnerService.PetOwnerProcessors
 { 
-    public class ProcessCatsAlphaOwnerGender : IProcessCatsAlphaOwnerGender
+    public class CatToOwnersGenderMapper : IMapCatToOwnersGender
     {        
         public Dictionary<string, List<string>> Process(IEnumerable<PetOwner> petOwners)
         {
@@ -23,14 +23,14 @@ namespace PetOwnerService.PetOwnerProcessors
                 var orderedReleventRecordTuples = releventRecordTuples.OrderBy(rt => rt.Pet.Name);
 
                 //group by owner gender
-                //var genderGroups = orderedReleventRecordTuples.GroupBy(rr => rr.OwnerGender, rr => rr.Pet);
+                var genderGroups = orderedReleventRecordTuples.GroupBy(rr => rr.OwnerGender, rr => rr.Pet);
 
                 //convert to dictionary and only keep the pet.name value            
-                //var outputDictionary = genderGroups.ToDictionary(grp => grp.Key, petList => petList.Select(pet => pet.Name).ToList());
+                var outputDictionary = genderGroups.ToDictionary(grp => grp.Key, petList => petList.Select(pet => pet.Name).ToList());
 
                 return outputDictionary;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 throw;
             }

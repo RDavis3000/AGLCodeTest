@@ -11,16 +11,16 @@ namespace CatListMVCUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly CatsAlphaOwnerGenderService catsAlphaOwnerGenderService;
+        private readonly GetCatMapService getCatMapService;
 
-        public HomeController(CatsAlphaOwnerGenderService catsAlphaOwnerGenderService)
+        public HomeController(GetCatMapService catsAlphaOwnerGenderService)
         {
-            this.catsAlphaOwnerGenderService = catsAlphaOwnerGenderService;
+            this.getCatMapService = catsAlphaOwnerGenderService;
         }
 
         public async Task<IActionResult> CatList()
         {
-            var viewModel = await catsAlphaOwnerGenderService.GetCatsAlphaOwnerGenderDictionaryAsync();
+            var viewModel = await getCatMapService.GetCatMapAsync();
 
             return View(viewModel);
         }

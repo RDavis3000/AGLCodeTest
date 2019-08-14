@@ -3,7 +3,7 @@ using PetOwnerModels;
 
 namespace PetOwnerService.PetOwnerProcessors
 {
-    public interface IProcessCatsAlphaOwnerGender
+    public interface IMapCatToOwnersGender
     {
         Dictionary<string, List<string>> Process(IEnumerable<PetOwner> petOwners);
     }

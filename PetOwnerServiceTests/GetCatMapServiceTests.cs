@@ -1,26 +1,23 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
+using Moq;
 using PetOwnerModels;
+using PetOwnerService;
 using PetOwnerService.PetOwnerProcessors;
+using PetOwnerService.Readers;
+using PetOwnerServiceTests.EqualityComparers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace PetOwnerServiceTests
 {
     [TestClass]
-    public class ProcessCatsAlphaOwnerGenderTest
+    public class GetCatMapServiceTests
     {
-
         [TestMethod]
-        public void TestProcess()
+        public async void GetCatsAlphaOwnerGenderDictionaryTest()
         {
-
-            //Arrange
-
-            var processCatsAlphaOwnerGender = new ProcessCatsAlphaOwnerGender();
-
+            //arrange
             List<PetOwner> testData = new List<PetOwner>()
             {
                 new PetOwner()
@@ -97,10 +94,10 @@ namespace PetOwnerServiceTests
 
                 {"Gender1", new List<string>()
                 {
-                    "abPet4",
-                    "aPet1",
-                    "bzPet5",
-                    "dupe1"
+                   "aPet1",
+                   "abPet4",
+                   "bzPet5",
+                   "dupe1"
                 }
                 },
                 {"Gender2", new List<string>()
@@ -112,74 +109,23 @@ namespace PetOwnerServiceTests
                 }
             };
 
-            var expectedresult2 = new Dictionary<string, List<string>>()
-            {
+            var IReadPetOwnersMock = new Mock<IReadPetOwners>();
 
-                {"Gender1", new List<string>()
-                {
-                    "abPet4",
-                    "aPet1",
-                    "bzPet5",
-                    "dupe1"
-                }
-                },
-                {"Gender2", new List<string>()
-                {
-                   "bPet7",
-                   "bPet8",
-                   "dupe1"
-                }
-                }
-            };
+            IReadPetOwnersMock.Setup(p => p.ReadPetOwners()).ReturnsAsync(testData);
 
-            //Act
+            var ownerProcessor = new CatToOwnersGenderMapper();
 
-            var processResult = processCatsAlphaOwnerGender.Process(testData);
+            var catsAlphaOwnerGenderService = new GetCatMapService(IReadPetOwnersMock.Object, ownerProcessor);
 
-            CollectionAssert.AreEqual(expectedresult, expectedresult2);
+            //act
+            var actualResult = await catsAlphaOwnerGenderService.GetCatMapAsync();
 
-            //Assert
-            //CollectionAssert.AreEqual(processResult, expectedresult);            
-        }
-    }
+            var dictionaryEqualityComparer = new CatMapDictionaryEqualityComparer();
 
-    public class DictComp : IComparer<Dictionary<string, List<string>>>
-    {
-        public int Compare(Dictionary<string, List<string>> x, Dictionary<string, List<string>> y)
-        {
+            var areEqual = dictionaryEqualityComparer.Equals(actualResult, expectedresult);
 
-            if(x.Keys.Count !=y.Keys.Count)
-            {
-                return x.Keys.Count.CompareTo(y.Keys.Count);
-            }
-
-            for (int i = 0; i < x.Keys.Count; i++)
-            {
-                if (x.Keys.ElementAt(i) == y.Keys.ElementAt(i))
-                {
-                    var xValue = x.GetValueOrDefault(x.Keys.ElementAt(i));
-                    var yValue = y.GetValueOrDefault(y.Keys.ElementAt(i));
-
-                    if (xValue.Count != yValue.Count)
-                    {
-                        return 1;
-                    }
-
-                    for (int j = 0; j < xValue.Count; j++)
-                    {
-                        if (xValue.ElementAt(j).CompareTo(yValue.ElementAt(j)) != 0)
-                        {
-                            return 1;
-                        }
-                    }
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-
-            return 0;
+            //assert
+            Assert.IsTrue(areEqual);
         }
     }
 }

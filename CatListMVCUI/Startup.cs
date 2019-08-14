@@ -36,15 +36,11 @@ namespace CatListMVCUI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.Configure<CatListMVCConfig>(Configuration.GetSection("CatListMVCConfig"));
-
             var apiEndpoint = Configuration.GetSection("CatListMVCConfig").Get<CatListMVCConfig>();
 
-
             services.AddSingleton<IReadPetOwners, WebApiPetOwnerReader>(di => new WebApiPetOwnerReader(apiEndpoint.ApiEndpoint,di.GetRequiredService<ILogger<WebApiPetOwnerReader>>()));
-            services.AddSingleton<IProcessCatsAlphaOwnerGender, ProcessCatsAlphaOwnerGender>();
-            services.AddSingleton<CatsAlphaOwnerGenderService>(di => new CatsAlphaOwnerGenderService(di.GetRequiredService<IReadPetOwners>(),di.GetRequiredService<IProcessCatsAlphaOwnerGender>()));
-
+            services.AddSingleton<IMapCatToOwnersGender, CatToOwnersGenderMapper>();
+            services.AddSingleton<GetCatMapService>(di => new GetCatMapService(di.GetRequiredService<IReadPetOwners>(),di.GetRequiredService<IMapCatToOwnersGender>()));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

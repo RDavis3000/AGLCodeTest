@@ -1,23 +1,28 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using Newtonsoft.Json;
 using PetOwnerModels;
-using PetOwnerService;
 using PetOwnerService.PetOwnerProcessors;
-using PetOwnerService.Readers;
+using PetOwnerServiceTests.EqualityComparers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PetOwnerServiceTests
 {
     [TestClass]
-    public class CatsAlphaOwnerGenderServiceTest
+    public class CatToOwnersGenderMapperTests
     {
 
         [TestMethod]
-        public async void GetCatsAlphaOwnerGenderDictionaryTest()
+        public void TestProcess()
         {
-            //arrange
+
+            //Arrange
+
+            var processCatsAlphaOwnerGender = new CatToOwnersGenderMapper();
+
             List<PetOwner> testData = new List<PetOwner>()
             {
                 new PetOwner()
@@ -94,10 +99,10 @@ namespace PetOwnerServiceTests
 
                 {"Gender1", new List<string>()
                 {
-                   "aPet1",
-                   "abPet4",
-                   "bzPet5",
-                   "dupe1"
+                    "abPet4",
+                    "aPet1",
+                    "bzPet5",
+                    "dupe1"
                 }
                 },
                 {"Gender2", new List<string>()
@@ -109,19 +114,16 @@ namespace PetOwnerServiceTests
                 }
             };
 
-            var IReadPetOwnersMock = new Mock<IReadPetOwners>();
+            //Act
 
-            IReadPetOwnersMock.Setup(p => p.ReadPetOwners()).ReturnsAsync(testData);
+            var actualResult = processCatsAlphaOwnerGender.Process(testData);
 
-            var ownerProcessor = new ProcessCatsAlphaOwnerGender();
+            var dictionaryEqualityComparer = new CatMapDictionaryEqualityComparer();
 
-            var catsAlphaOwnerGenderService = new CatsAlphaOwnerGenderService(IReadPetOwnersMock.Object, ownerProcessor);
+            var areEqual = dictionaryEqualityComparer.Equals(actualResult, expectedresult);            
 
-            //act
-            var result = await catsAlphaOwnerGenderService.GetCatsAlphaOwnerGenderDictionaryAsync();
-
-            //assert
-            Assert.AreEqual(result, expectedresult);
+            //Assert
+            Assert.IsTrue(areEqual);
         }
     }
 }
