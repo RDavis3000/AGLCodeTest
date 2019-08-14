@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetOwnerModels", "PetOwnerM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatListMVCUI", "CatListMVCUI\CatListMVCUI.csproj", "{EE46A235-CB7D-4B8D-AE07-CCD214D9C089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatListConsoleUI", "CatListConsoleUI\CatListConsoleUI.csproj", "{1F8734C5-3F74-4F0A-8862-32D5730D8FFF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{EE46A235-CB7D-4B8D-AE07-CCD214D9C089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE46A235-CB7D-4B8D-AE07-CCD214D9C089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE46A235-CB7D-4B8D-AE07-CCD214D9C089}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F8734C5-3F74-4F0A-8862-32D5730D8FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F8734C5-3F74-4F0A-8862-32D5730D8FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F8734C5-3F74-4F0A-8862-32D5730D8FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F8734C5-3F74-4F0A-8862-32D5730D8FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
