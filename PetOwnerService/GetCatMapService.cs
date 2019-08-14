@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PetOwnerService
 {
-    public class GetCatMapService
+    public class GetCatMapService : IGetCatMapService
     {
         private readonly IReadPetOwners _readPetOwners;
         private readonly IMapCatToOwnersGender _catToOwnersGenderMapper;
@@ -23,7 +23,7 @@ namespace PetOwnerService
             _logger = logger;
         }
 
-        public async Task<Dictionary<string, List<string>>> GetCatMapAsync()
+        public async Task<Dictionary<string, List<string>>> GetCatMapDictionaryAsync()
         {
             try
             {

@@ -28,7 +28,7 @@ namespace CatListMVCUI.Controllers
             {
                 //var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier);
                 _logger.LogInformation($"HomeController.CatList called");// by {currentUserId.Value}");
-                var viewModel = await _getCatMapService.GetCatMapAsync();
+                var viewModel = await _getCatMapService.GetCatMapDictionaryAsync();
                 _logger.LogInformation("HomeController.CatList retrieved viewModel");
                 return View(viewModel);
             }

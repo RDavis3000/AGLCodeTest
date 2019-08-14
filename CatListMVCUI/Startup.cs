@@ -38,10 +38,9 @@ namespace CatListMVCUI
 
             var catListMVCConfig = Configuration.GetSection("CatListMVCConfig").Get<CatListMVCConfig>();
 
-            //services.AddSingleton<IReadPetOwners, WebApiPetOwnerReader>(di => new WebApiPetOwnerReader(apiEndpoint.ApiEndpoint,di.GetRequiredService<ILogger<WebApiPetOwnerReader>>()));
             services.AddSingleton<IReadPetOwners, WebApiPetOwnerReader>(di => new WebApiPetOwnerReader(catListMVCConfig.ApiEndpoint, di.GetRequiredService<ILogger<WebApiPetOwnerReader>>()));
             services.AddSingleton<IMapCatToOwnersGender, CatToOwnersGenderMapper>();
-            services.AddSingleton<GetCatMapService>(di => new GetCatMapService(di.GetRequiredService<IReadPetOwners>(),di.GetRequiredService<IMapCatToOwnersGender>(),di.GetRequiredService<ILogger<GetCatMapService>>()));
+            services.AddSingleton<IGetCatMapService,GetCatMapService>(di => new GetCatMapService(di.GetRequiredService<IReadPetOwners>(),di.GetRequiredService<IMapCatToOwnersGender>(),di.GetRequiredService<ILogger<GetCatMapService>>()));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
