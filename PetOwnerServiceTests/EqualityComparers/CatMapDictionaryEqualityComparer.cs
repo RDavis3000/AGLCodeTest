@@ -35,7 +35,7 @@ namespace PetOwnerServiceTests.EqualityComparers
 
                 return kvpEquals;
             }
-            catch(NullReferenceException e)
+            catch(NullReferenceException)
             {
                 return false;
             }

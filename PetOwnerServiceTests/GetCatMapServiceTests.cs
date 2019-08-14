@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PetOwnerModels;
 using PetOwnerService;
@@ -109,13 +110,15 @@ namespace PetOwnerServiceTests
                 }
             };
 
+            var ILoggerMock = new Mock<ILogger<GetCatMapService>>();
+
             var IReadPetOwnersMock = new Mock<IReadPetOwners>();
 
             IReadPetOwnersMock.Setup(p => p.ReadPetOwners()).ReturnsAsync(testData);
 
             var ownerProcessor = new CatToOwnersGenderMapper();
 
-            var catsAlphaOwnerGenderService = new GetCatMapService(IReadPetOwnersMock.Object, ownerProcessor);
+            var catsAlphaOwnerGenderService = new GetCatMapService(IReadPetOwnersMock.Object, ownerProcessor, ILoggerMock.Object);
 
             //act
             var actualResult = await catsAlphaOwnerGenderService.GetCatMapAsync();

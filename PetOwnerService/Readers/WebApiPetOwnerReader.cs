@@ -11,13 +11,13 @@ namespace PetOwnerService.Readers
 {
     public class WebApiPetOwnerReader : IReadPetOwners
     {
-        private readonly string endpoint;
-        private readonly ILogger<WebApiPetOwnerReader> log;
+        private readonly string _endpoint;
+        private readonly ILogger<WebApiPetOwnerReader> _log;
 
         public WebApiPetOwnerReader(string endpoint, ILogger<WebApiPetOwnerReader> log)
         {
-            this.endpoint = endpoint;
-            this.log = log;
+            _endpoint = endpoint;
+            _log = log;
         }
 
         public async Task<IEnumerable<PetOwner>> ReadPetOwners()
@@ -26,19 +26,19 @@ namespace PetOwnerService.Readers
             {
                 try
                 {
-                    var response = await client.GetAsync(endpoint);
+                    var response = await client.GetAsync(_endpoint);
 
                     response.EnsureSuccessStatusCode();
 
                     var stringResult = await response.Content.ReadAsStringAsync();
-                    log.LogInformation($"PetOwner information retrieved from {endpoint}");
+                    _log.LogInformation($"PetOwner information retrieved from {_endpoint}");
                     var ownerList = JsonConvert.DeserializeObject<List<PetOwner>>(stringResult);
-                    log.LogInformation($"PetOwner information deserialised");
+                    _log.LogInformation($"PetOwner information deserialised");
                     return ownerList;
                 }
                 catch (Exception e)
                 {
-                    log.LogError(e, "Unhandled exception in WebApiPetOwnerReader.ReadPetOwners");
+                    _log.LogError(e, "Unhandled exception in WebApiPetOwnerReader.ReadPetOwners");
                     throw;
                 }
             }

@@ -8,5 +8,6 @@ namespace CatListMVCUI.Configuration
     public class CatListMVCConfig
     {
         public string ApiEndpoint { get; set; }
+        public string NLogConfigFileFullName { get; set; }
     }
 }

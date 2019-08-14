@@ -21,7 +21,7 @@ namespace PetOwnerServiceTests.EqualityComparers
                 var compLists = x.Value.SequenceEqual(y.Value);
                 return compLists;
             }
-            catch(NullReferenceException e)
+            catch(NullReferenceException)
             {
                 //if anything is null then return false
                 return false;

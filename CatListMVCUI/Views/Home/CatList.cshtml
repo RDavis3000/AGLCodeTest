@@ -1,4 +1,4 @@
-﻿@model Dictionary<string,IEnumerable<string>>
+﻿@model Dictionary<string,List<string>>
 
 
 @{
@@ -7,7 +7,7 @@
 
 <h2>List of cats' names by owner's gender</h2>
 
-@foreach(KeyValuePair<string, IEnumerable<string>> gender in Model)
+@foreach(KeyValuePair<string, List<string>> gender in Model)
 {
     <h5>@gender.Key</h5>
     <ul>
