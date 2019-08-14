@@ -19,7 +19,7 @@ namespace PetOwnerService
             this.processCatsAlphaOwnerGender = processCatsAlphaOwnerGender;
         }
 
-        public async Task<Dictionary<string,IEnumerable<string>>>  GetCatsAlphaOwnerGenderDictionary()
+        public async Task<Dictionary<string,List<string>>>  GetCatsAlphaOwnerGenderDictionaryAsync()
         {
             var petOwners = await readPetOwners.ReadPetOwners();
 

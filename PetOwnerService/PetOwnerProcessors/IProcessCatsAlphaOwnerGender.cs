@@ -5,6 +5,6 @@ namespace PetOwnerService.PetOwnerProcessors
 {
     public interface IProcessCatsAlphaOwnerGender
     {
-        Dictionary<string, IEnumerable<string>> Process(IEnumerable<PetOwner> petOwners);
+        Dictionary<string, List<string>> Process(IEnumerable<PetOwner> petOwners);
     }
 }

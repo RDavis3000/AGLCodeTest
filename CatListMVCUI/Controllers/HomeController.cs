@@ -18,9 +18,9 @@ namespace CatListMVCUI.Controllers
             this.catsAlphaOwnerGenderService = catsAlphaOwnerGenderService;
         }
 
-        public IActionResult CatList()
+        public async Task<IActionResult> CatList()
         {
-            var viewModel = catsAlphaOwnerGenderService.GetCatsAlphaOwnerGenderDictionary().Result;
+            var viewModel = await catsAlphaOwnerGenderService.GetCatsAlphaOwnerGenderDictionaryAsync();
 
             return View(viewModel);
         }
